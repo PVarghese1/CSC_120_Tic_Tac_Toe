@@ -1,6 +1,7 @@
 # Tic Tac Toe Rough Draft Template 2
 # Joseph Nater (@jnater)
 # for CSC_120 Group 7
+# Prince Varghese - Winning or Losing
 
 game_started = [False]
 
@@ -61,23 +62,20 @@ def loop_game():
             # Print the actual board
             print_board(board)
             # Check for any winning patterns
-            for char in ["O", "X"]:
-                pattern = (char, char, char)
+            winner_chosen = check_win(board,p)
+            #for char in ["O", "X"]:
+                #pattern = (char, char, char)
                 # Capture "XXX" or "OOO" pattern
-                # TODO: Add all different winning patterns (possible options of winning)
-                # e.g check for each row, and also check diagonally |X|
-                #                                                     |X|
-                #                                                       |X|
-                if pattern == (board[0], board[1], board[2]):
-                    if char == "O":
-                        print("Player 2 wins!")
-                    if char == "X":
-                        print("Player 1 wins!")
-                    return
-            
+            # I didnt use this for loop - Prince
+
+
+
+
             retry = True
             # Wait for an actual choice from the player
-            while retry:
+            while retry and not winner_chosen:
+                if winner_chosen == True:
+                    break
                 try:
                     choice = int(input(f"{p[1]}, make a selection (1-9): "))-1
                 except ValueError:
@@ -99,11 +97,48 @@ def loop_game():
                     board_assigned[choice] = True
                     board[choice] = p[0]
                     retry = False
+            if winner_chosen == True:
+                break
             if not game_started[0]:
                 break
+        if winner_chosen == True:
+            break
         if not game_started[0]:
             break
 
+# Prince check win
+def check_win(board,playerinfo):
+    player = playerinfo[0]
+    name = playerinfo[1]
+
+    if board[0] == player and board[1] == player and board[2] == player:
+        print (board[0],board[1],board[2])
+        print(f"{name} wins")
+        return True
+    elif board[3] == player and board[4] == player and board[5] == player:
+        print (board[4],board[5],board[6])
+        print(f"{name} wins")
+        return True
+    elif board[6] == player and board[7] == player and board[8] == player:
+        print(f"{name} wins")
+        return True
+    elif board[0] == player and board[3] == player and board[6] == player:
+        print(f"{name} wins")
+        return True
+    elif board[1] == player and board[4] == player and board[7] == player:
+        print(f"{name} wins")
+        return True
+    elif board[2] == player and board[5] == player and board[8] == player:
+        print(f"{name} wins")
+        return True
+    elif board[0] == player and board[4] == player and board[8] == player:
+        print(f"{name} wins")
+        return True
+    elif board[2] == player and board[4] == player and board[6] == player:
+        print(f"{name} wins")
+        return True
+    else:
+        return False
 
 
 
