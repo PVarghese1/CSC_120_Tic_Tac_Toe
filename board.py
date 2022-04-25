@@ -1,12 +1,16 @@
-# Tic Tac Toe Rough Draft Template 2
+# Tic Tac Toe  - for CSC_120 Group 7
+# __________________________________
+# Team members (add your names below)
 # Joseph Nater (@jnater)
-# for CSC_120 Group 7
-# Prince Varghese - Winning or Losing
+# Prince Varghese
+# Mariam Ahmed
+# __________________________________
 
 game_started = [False]
 
 player_1 = ["X", "Player 1"]
 player_2 = ["O", "Player 2"]
+
 
 # When a player marks a position, we assign it to the
 # appropriate list so we know which players have
@@ -21,9 +25,9 @@ def setup_board():
     # and treat it like a game.
 
     board = [
-        '-','-','-',
-        '-','-','-',
-        '-','-','-'
+        '-', '-', '-',
+        '-', '-', '-',
+        '-', '-', '-'
     ]
 
     # Create a default mapping of a clean board where 0-9 are
@@ -52,7 +56,6 @@ def loop_game():
     # Setup a clean board to work with
     board, board_assigned = setup_board()
 
-
     # Start the actual game logic
     while True:
 
@@ -62,14 +65,17 @@ def loop_game():
             # Print the actual board
             print_board(board)
             # Check for any winning patterns
-            winner_chosen = check_win(board,p)
-            #for char in ["O", "X"]:
-                #pattern = (char, char, char)
-                # Capture "XXX" or "OOO" pattern
+            # winner_chosen = check_win(board, p)
+            winner_chosen = check_win(board, player_1)
+            if winner_chosen == True:
+                break
+            winner_chosen = check_win(board, player_2)
+            if winner_chosen == True:
+                break
+            # for char in ["O", "X"]:
+            # pattern = (char, char, char)
+            # Capture "XXX" or "OOO" pattern
             # I didnt use this for loop - Prince
-
-
-
 
             retry = True
             # Wait for an actual choice from the player
@@ -77,7 +83,7 @@ def loop_game():
                 if winner_chosen == True:
                     break
                 try:
-                    choice = int(input(f"{p[1]}, make a selection (1-9): "))-1
+                    choice = int(input(f"{p[1]}, make a selection (1-9): ")) - 1
                 except ValueError:
                     print("Please make a valid selection from 1-9.")
                     continue
@@ -85,8 +91,8 @@ def loop_game():
                     game_started[0] = False
                     print()
                     break
-                if choice+1 not in range(1,10):
-                    print("Please make a valid selection from 0-9.")
+                if choice + 1 not in range(1, 10):
+                    print("Please make a valid selection from 1-9.")
                     continue
                 if board_assigned[choice] != False:
                     print("That choice has already been selected.")
@@ -106,17 +112,16 @@ def loop_game():
         if not game_started[0]:
             break
 
+
 # Prince check win
-def check_win(board,playerinfo):
+def check_win(board, playerinfo):
     player = playerinfo[0]
     name = playerinfo[1]
 
     if board[0] == player and board[1] == player and board[2] == player:
-        print (board[0],board[1],board[2])
         print(f"{name} wins")
         return True
     elif board[3] == player and board[4] == player and board[5] == player:
-        print (board[4],board[5],board[6])
         print(f"{name} wins")
         return True
     elif board[6] == player and board[7] == player and board[8] == player:
@@ -141,7 +146,6 @@ def check_win(board,playerinfo):
         return False
 
 
-
 def main():
     # print main board
     # Logic can then be done anytime before the board is printed
@@ -150,7 +154,8 @@ def main():
     # (or player 1 starts first)
 
     game_started[0] = True
-
+    print('Welcome to CSC 120 Tic Tac Toe Game')
+    print('Player 1 = X and Player 2 = 0')
     while game_started[0]:
         loop_game()
         game_started[0] = input("Would you like to play again? (y/n): ") == 'y' and True or False
