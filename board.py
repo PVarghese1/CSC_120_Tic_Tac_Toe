@@ -131,28 +131,14 @@ def check_win(board, playerinfo):
     player = playerinfo[0]
     name = playerinfo[1]
 
-    if board[0] == player and board[1] == player and board[2] == player:
-        print(f"{name} wins")
-        return True
-    elif board[3] == player and board[4] == player and board[5] == player:
-        print(f"{name} wins")
-        return True
-    elif board[6] == player and board[7] == player and board[8] == player:
-        print(f"{name} wins")
-        return True
-    elif board[0] == player and board[3] == player and board[6] == player:
-        print(f"{name} wins")
-        return True
-    elif board[1] == player and board[4] == player and board[7] == player:
-        print(f"{name} wins")
-        return True
-    elif board[2] == player and board[5] == player and board[8] == player:
-        print(f"{name} wins")
-        return True
-    elif board[0] == player and board[4] == player and board[8] == player:
-        print(f"{name} wins")
-        return True
-    elif board[2] == player and board[4] == player and board[6] == player:
+    if board[0] == player and board[1] == player and board[2] == player \
+            or board[3] == player and board[4] == player and board[5] == player \
+            or board[6] == player and board[7] == player and board[8] == player \
+            or board[0] == player and board[3] == player and board[6] == player \
+            or board[1] == player and board[4] == player and board[7] == player \
+            or board[2] == player and board[5] == player and board[8] == player \
+            or board[0] == player and board[4] == player and board[8] == player \
+            or board[2] == player and board[4] == player and board[6] == player:
         print(f"{name} wins")
         return True
     else:
