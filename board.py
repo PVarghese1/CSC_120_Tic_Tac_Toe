@@ -58,7 +58,6 @@ def loop_game():
 
     # Start the actual game logic
     while True:
-
         # Cycle between player 1, and player 2
         for p in [player_1, player_2]:
 
@@ -66,12 +65,13 @@ def loop_game():
             print_board(board)
             # Check for any winning patterns
             # winner_chosen = check_win(board, p)
-            winner_chosen = check_win(board, player_1)
-            if winner_chosen == True:
+            winner_chosen = check_win(board, player_1) and check_win(board, player_2)
+            tie = check_tie(board)
+            if winner_chosen:
                 break
-            winner_chosen = check_win(board, player_2)
-            if winner_chosen == True:
-                break
+            if not winner_chosen:
+                if tie:
+                    break
             # for char in ["O", "X"]:
             # pattern = (char, char, char)
             # Capture "XXX" or "OOO" pattern
@@ -79,22 +79,29 @@ def loop_game():
 
             retry = True
             # Wait for an actual choice from the player
-            while retry and not winner_chosen:
-                if winner_chosen == True:
+            while retry and not winner_chosen and not tie:
+                if winner_chosen:
                     break
+                if not winner_chosen:
+                    if tie:
+                        break
                 try:
-                    choice = int(input(f"{p[1]}, make a selection (1-9): ")) - 1
+                    choice = input(f"{p[1]}, make a selection (1-9) or enter Q to quit: ")
+                    if choice.upper() == "Q":
+                        exit()
+                    else:
+                        choice = int(choice) - 1
                 except ValueError:
-                    print("Please make a valid selection from 1-9.")
+                    print("Please make a valid selection from 1-9 or enter Q to quit.")
                     continue
                 except KeyboardInterrupt:
                     game_started[0] = False
                     print()
                     break
                 if choice + 1 not in range(1, 10):
-                    print("Please make a valid selection from 1-9.")
+                    print("Please make a valid selection from 1-9 or enter Q to quit.")
                     continue
-                if board_assigned[choice] != False:
+                if board_assigned[choice]:
                     print("That choice has already been selected.")
                     print_board(board)
                     # Retry to get the player's choice if it is invalid
@@ -103,12 +110,18 @@ def loop_game():
                     board_assigned[choice] = True
                     board[choice] = p[0]
                     retry = False
-            if winner_chosen == True:
+            if winner_chosen:
                 break
+            if not winner_chosen:
+                if tie:
+                    break
             if not game_started[0]:
                 break
-        if winner_chosen == True:
+        if winner_chosen:
             break
+        if not winner_chosen:
+            if tie:
+                break
         if not game_started[0]:
             break
 
@@ -144,6 +157,12 @@ def check_win(board, playerinfo):
         return True
     else:
         return False
+
+
+def check_tie(board):
+    if "-" not in board:
+        print("Tie!")
+        return True
 
 
 def main():
