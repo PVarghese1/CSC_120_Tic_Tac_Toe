@@ -4,7 +4,7 @@
 # Joseph Nater (@jnater)
 # Prince Varghese
 # Mariam Ahmed
-# __________________________________
+# Michael Whitley
 
 game_started = [False]
 
