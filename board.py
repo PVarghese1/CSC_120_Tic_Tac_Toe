@@ -13,7 +13,7 @@ player_2 = ["O", "Player 2"]
 
 
 # When a player marks a position, we assign it to the
-# appropriate list so we know which players have
+# appropriate list, so we know which players have
 # which positions assigned.
 # Positions in this case are numbered 0-9, so when the
 # actual game logic runs, these lists will determine
@@ -163,7 +163,10 @@ def main():
     print('Player 1 = X and Player 2 = 0')
     while game_started[0]:
         loop_game()
-        game_started[0] = input("Would you like to play again? (y/n): ") == 'y' and True or False
+        start = ''
+        while start.lower() not in ['y', 'n']:
+            start = input("Would you like to play again? (y/n): ")
+        game_started[0] = start.lower() == 'y' and True or False
 
 
 main()
